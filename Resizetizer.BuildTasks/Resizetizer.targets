@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<UsingTask TaskName="Resizetizer.BuildTasks.Resizetize" AssemblyFile="Resizetizer.BuildTasks.dll" />
+
+	<!-- the pre-build checks -->
+	<Target Name="ResizetizerChecks" Condition=" '@(ResizetizerConfig)' == '' " BeforeTargets="BeforeBuild">
+		<Message Text="No ResizetizerConfig file(s) specified." />
+	</Target>
+
+	<!-- make the 'ImageAssetResizerConfig' build action available in the Visual Studio dropdown -->
+	<ItemGroup>
+		<AvailableItemName Include="ResizetizerConfig" />
+	</ItemGroup>
+
+	<!-- set some defaults -->
+	<PropertyGroup>
+		<ResizetizeDependsOn>
+			$(ResizetizeDependsOn);
+		</ResizetizeDependsOn>
+		<ResizetizeBeforeTargets>
+			PrepareForBuild;$(ResizetizeBeforeTargets);
+		</ResizetizeBeforeTargets>
+		<ResizetizeAfterTargets>
+			$(ResizetizeAfterTargets);
+		</ResizetizeAfterTargets>
+	</PropertyGroup>
+	
+	<!-- the build tasks -->
+	<Target Name="Resizetize"
+		Condition=" '@(ResizetizerConfig)' != '' "
+		BeforeTargets="$(ResizetizeBeforeTargets)"
+		AfterTargets="$(ResizetizeAfterTargets)">
+		<Resizetize 
+        	IntermediateOutputPath="$(IntermediateOutputPath)"
+			ConfigFiles="@(ResizetizerConfig)">
+		</Resizetize>
+	</Target>
+</Project>

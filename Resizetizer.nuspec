@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Resizetizer</id>
+    <title>Resizetizer for Xamarin Image Assets</title>
+    <version>$version$</version>
+    <authors>Redth</authors>
+    <owners>Redth</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>Easily and automatically resize your source image assets as part of your build process.</summary>
+    <description>
+      Easily and automatically resize your source image assets as part of your build process.
+
+      iOS:
+       - @1x, @2x, @3x
+
+      Android:
+       - All the dpi's (eg: ldpi, mdpi, hdpi, xhdpi, etc.)
+       - Any custom dpi folder (eg: drawable-large-land-mdpi)
+
+      UWP:
+       - No explicit support yet, but very possible to still use custom outputs with already!
+    </description>
+    <copyright>Copyright © Redth</copyright>
+    <projectUrl>https://github.com/redth/Resizetizer/</projectUrl>
+    <licenseUrl>https://github.com/redth/Resizetizer/blob/master/LICENSE.md</licenseUrl>
+  </metadata>
+  <files>
+    <file src="Resizetizer/bin/Release/Resizetizer.dll" target="build" />
+    <file src="Resizetizer.BuildTasks/bin/Release/Resizetizer.targets" target="build" />
+    <file src="Resizetizer.BuildTasks/bin/Release/Resizetizer.BuildTasks.dll" target="build" />
+
+    <file src="Resizetizer/bin/Release/YamlDotNet.dll" target="build" />
+    <file src="Resizetizer/bin/Release/Newtonsoft.Json.dll" target="build" />
+
+    <file src="Resizetizer/bin/Release/SkiaSharp.dll" target="build" />
+    <file src="Resizetizer/bin/Release/SkiaSharp.Svg.dll" target="build" />
+    <file src="packages/SkiaSharp.1.56.1-beta/runtimes/osx/native/libSkiaSharp.dylib" target="build" />
+    <file src="packages/SkiaSharp.1.56.1-beta/runtimes/win7-x86/native/libSkiaSharp.dll" target="build" />
+    <file src="packages/SkiaSharp.1.56.1-beta/build/net45/SkiaSharp.dll.config" target="build" />    
+
+    <file src="THIRD-PARTY-NOTICES.txt" target="THIRD-PARTY-NOTICES.txt" />
+    <file src="nuget-readme.txt" target="" />
+  </files>
+</package>

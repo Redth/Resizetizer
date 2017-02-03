@@ -1,0 +1,35 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resizetizer", "Resizetizer\Resizetizer.csproj", "{542AA1F3-DB6E-42EB-8166-19FACFD93B94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resizetizer.Tests", "Resizetizer.Tests\Resizetizer.Tests.csproj", "{856C34CF-54B1-43B8-A86D-50BA37E19244}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resizetizer.BuildTasks", "Resizetizer.BuildTasks\Resizetizer.BuildTasks.csproj", "{2ECA361A-951B-4E3A-BF0C-7FC762C71748}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resizetizer.BuildTasks.Tests", "Resizetizer.BuildTasks.Tests\Resizetizer.BuildTasks.Tests.csproj", "{B22B270E-1F92-481E-BA5A-9E1FA02FF7F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{542AA1F3-DB6E-42EB-8166-19FACFD93B94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{542AA1F3-DB6E-42EB-8166-19FACFD93B94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{542AA1F3-DB6E-42EB-8166-19FACFD93B94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{542AA1F3-DB6E-42EB-8166-19FACFD93B94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{856C34CF-54B1-43B8-A86D-50BA37E19244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{856C34CF-54B1-43B8-A86D-50BA37E19244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{856C34CF-54B1-43B8-A86D-50BA37E19244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{856C34CF-54B1-43B8-A86D-50BA37E19244}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECA361A-951B-4E3A-BF0C-7FC762C71748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECA361A-951B-4E3A-BF0C-7FC762C71748}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECA361A-951B-4E3A-BF0C-7FC762C71748}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECA361A-951B-4E3A-BF0C-7FC762C71748}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B22B270E-1F92-481E-BA5A-9E1FA02FF7F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B22B270E-1F92-481E-BA5A-9E1FA02FF7F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B22B270E-1F92-481E-BA5A-9E1FA02FF7F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B22B270E-1F92-481E-BA5A-9E1FA02FF7F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
