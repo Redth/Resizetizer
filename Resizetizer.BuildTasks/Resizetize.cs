@@ -33,6 +33,14 @@ namespace Resizetizer.BuildTasks
 					foreach (var cf in ConfigFiles)
 					{
 						var file = CleanPath(cf.ItemSpec);
+						var configFileInfo = new FileInfo(file);
+
+						if (!configFileInfo.Exists)
+						{
+							LogMessage("File does not exist, skipping: {0}", file);
+							continue;
+						}
+
 
 						LogMessage("Resizetizing: {0}", file);
 
@@ -57,7 +65,9 @@ namespace Resizetizer.BuildTasks
 								{
 									var outputFileInfo = new FileInfo(output.GetAbsoluteFilename(absoluteOutputBasePath, asset.File));
 
-									if (stamps.ContainsKey(outputFileInfo.FullName) && assetFileInfo.LastWriteTimeUtc <= stamps[outputFileInfo.FullName])
+									if (stamps.ContainsKey(outputFileInfo.FullName)
+										&& assetFileInfo.LastWriteTimeUtc <= stamps[outputFileInfo.FullName]
+										&& configFileInfo.LastWriteTimeUtc <= stamps[outputFileInfo.FullName])
 									{
 										LogMessage("Source unchanged, skipped resizing: {0}", outputFileInfo.FullName);
 										config.Outputs.Remove(output);
@@ -77,14 +87,18 @@ namespace Resizetizer.BuildTasks
 							{
 								var assetFileInfo = new FileInfo(asset.GetAbsoluteFile(absoluteOutputBasePath));
 
+								var newestModifyTime = assetFileInfo.LastWriteTimeUtc;
+								if (configFileInfo.LastWriteTimeUtc > assetFileInfo.LastWriteTimeUtc)
+									newestModifyTime = configFileInfo.LastWriteTimeUtc;
+								
 								foreach (var output in config.Outputs.ToArray())
 								{
 									var outputFileInfo = new FileInfo(output.GetAbsoluteFilename(absoluteOutputBasePath, asset.File));
 
 									if (stamps.ContainsKey(outputFileInfo.FullName))
-										stamps[outputFileInfo.FullName] = assetFileInfo.LastWriteTimeUtc;
+										stamps[outputFileInfo.FullName] = newestModifyTime;
 									else
-										stamps.Add(outputFileInfo.FullName, assetFileInfo.LastWriteTimeUtc);
+										stamps.Add(outputFileInfo.FullName, newestModifyTime);
 								}
 							}
 						}
