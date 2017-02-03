@@ -1,5 +1,7 @@
 # Resizetizer
 
+[![NuGet](https://img.shields.io/nuget/v/Resizetizer.svg)](https://www.nuget.org/packages/Resizetizer/) 
+
 Have you ever wanted an easier way to manage all those different sizes of images in your app? Resizetizer is a more sane way to automate this process, and is friendly to developers who suck at design (like myself!).
 
 You an use SVG vectors or PNG/BMP/JPG graphics as source assets, and with a bit of simple configuration, have them automatically resized to every resolution your app needs!
