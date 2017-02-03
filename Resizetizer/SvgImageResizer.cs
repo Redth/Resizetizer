@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 using SkiaSharp;
 
 namespace Resizetizer
@@ -9,9 +11,40 @@ namespace Resizetizer
 		public SvgImageResizer() : base ()
 		{
 		}
+		const string rxFill = @"style\s?=\s?""fill:(?<fill>.*?)""";
 
-		public override void Resize(string sourceFile, string destinationFile, int sourceNominalWidth, int sourceNominalHeight, double resizeRatio)
+		public override void Resize(string sourceFile, string destinationFile, ImageAsset asset, OutputConfig outputConfig)
 		{
+			int sourceNominalWidth = asset.Width;
+			int sourceNominalHeight = asset.Height;
+			double resizeRatio = outputConfig.Ratio;
+
+			// For SVG's we can optionally change the fill color on all paths
+			if (!string.IsNullOrEmpty(outputConfig.FillColor))
+			{
+				var svgText = File.ReadAllText(sourceFile);
+
+				var matches = Regex.Matches(svgText, rxFill);
+
+				foreach (Match match in matches)
+				{
+					var fillGroup = match.Groups?["fill"];
+
+					if (fillGroup != null)
+					{
+						// Replace the matched rx group with our override fill color
+						var a = svgText.Substring(0, fillGroup.Index);
+						var b = svgText.Substring(fillGroup.Index + fillGroup.Length);
+						svgText = a + outputConfig.FillColor.TrimEnd (';') + ";" + b;
+					}
+				}
+
+				// Write our changes out to a temp file so we don't alter the original
+				var tempFile = Path.GetTempFileName();
+				File.WriteAllText(tempFile, svgText);
+				sourceFile = tempFile;
+			}
+
 			var svg = new SKSvg();
 			svg.Load(sourceFile);
 

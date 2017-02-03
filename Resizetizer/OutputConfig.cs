@@ -12,6 +12,13 @@ namespace Resizetizer
 		public string FilePrefix { get; set; }
 		public string FileSuffix { get; set; }
 
+		public List<string> ExternalCommands { get; set; } = new List<string>();
+
+		public bool? Optimize { get; set; }
+		public PngOptimizerEngine? Optimizer { get; set; }
+
+		public string FillColor { get; set; }
+
 		public string GetFilename(string originalFilename)
 		{
 			return string.Format("{0}{1}{2}{3}",

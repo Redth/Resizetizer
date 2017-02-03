@@ -190,5 +190,111 @@ namespace Resizetizer.Tests
 				c => c.Assets.Any(a => a.File == "./assets/cog.svg")
 				&& c.Outputs.Any(o => o.Path == "./drawable-mdpi")));
 		}
+
+		[Test]
+		public void Test_SVG_FillColor ()
+		{
+			var basePath = GetBasePath();
+
+			var r = new Resizetizer.Engine();
+
+			r.Run(basePath, new Config
+			{
+				Assets = new List<ImageAsset> {
+					new ImageAsset {
+						File = "./input/happy.svg",
+						Size = "100x100"
+					},
+				},
+				OutputBasePath = "./output/",
+				AutoAddPlatformSizes = false,
+				Outputs = new List<OutputConfig> {
+					new OutputConfig {
+						Ratio = 1.0,
+						FillColor = "#000000",
+					},
+					new OutputConfig {
+						Ratio = 2.0,
+						FileSuffix = "x2",
+						FillColor = "#000000",
+					},
+					new OutputConfig {
+						Ratio = 3.0,
+						FileSuffix = "x3",
+						FillColor = "#000000",
+					},
+				}
+			});
+
+			Assert.IsTrue(File.Exists(Path.Combine(basePath, "output", "happy.png")));
+			Assert.IsTrue(File.Exists(Path.Combine(basePath, "output", "happyx2.png")));
+			Assert.IsTrue(File.Exists(Path.Combine(basePath, "output", "happyx3.png")));
+		}
+
+
+		[Test]
+		public void Test_ExternalCommand ()
+		{
+			var basePath = GetBasePath();
+
+			var r = new Resizetizer.Engine();
+
+			var config = new Config
+			{
+				Assets = new List<ImageAsset> {
+					new ImageAsset {
+						File = "./input/happy.svg",
+						Size = "100x100"
+					},
+				},
+				OutputBasePath = "./output/",
+				AutoAddPlatformSizes = false,
+				Outputs = new List<OutputConfig> {
+					new OutputConfig {
+						Ratio = 1.0,
+						FillColor = "#000000",
+					},
+					new OutputConfig {
+						Ratio = 2.0,
+						FileSuffix = "x2",
+						FillColor = "#000000",
+					},
+					new OutputConfig {
+						Ratio = 3.0,
+						FileSuffix = "x3",
+						FillColor = "#000000",
+					},
+				}
+			};
+
+			r.Run(basePath, config);
+
+			var happyFile = new FileInfo(Path.Combine(basePath, "output", "happy.png"));
+			var happyx2File = new FileInfo(Path.Combine(basePath, "output", "happyx2.png"));
+			var happyx3File = new FileInfo(Path.Combine(basePath, "output", "happyx3.png"));
+
+			Assert.IsTrue(happyFile.Exists);
+			Assert.IsTrue(happyx2File.Exists);
+			Assert.IsTrue(happyx3File.Exists);
+
+			var happySize = happyFile.Length;
+			var happyx2Size = happyx2File.Length;
+			var happyx3Size = happyx3File.Length;
+
+			config.ExternalCommands.Add("/usr/local/bin/optipng -o7 \"{outputFile}\"");
+			r.Run(basePath, config);
+
+			Assert.IsTrue(happyFile.Exists);
+			Assert.IsTrue(happyx2File.Exists);
+			Assert.IsTrue(happyx3File.Exists);
+
+			var happySize2 = happyFile.Length;
+			var happyx2Size2 = happyx2File.Length;
+			var happyx3Size2 = happyx3File.Length;
+
+			Assert.LessOrEqual(happySize2, happySize);
+			Assert.LessOrEqual(happyx2Size2, happyx2Size);
+			Assert.LessOrEqual(happyx3Size2, happyx3Size);
+		}
 	}
 }

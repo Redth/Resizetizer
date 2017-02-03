@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{542AA1F3-DB6E-42EB-8166-19FACFD93B94}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ImageAssetResizer</RootNamespace>
+    <RootNamespace>Resizetizer</RootNamespace>
     <AssemblyName>Resizetizer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -51,6 +51,8 @@
     <Compile Include="PngImageResizer.cs" />
     <Compile Include="ImageResizerFactory.cs" />
     <Compile Include="OutputConfig.cs" />
+    <Compile Include="PngOptimizer.cs" />
+    <Compile Include="ArgumentsParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

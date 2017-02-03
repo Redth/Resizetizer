@@ -10,8 +10,12 @@ namespace Resizetizer
 		{
 		}
 
-		public override void Resize(string sourceFile, string destinationFile, int sourceNominalWidth, int sourceNominalHeight, double resizeRatio)
+		public override void Resize(string sourceFile, string destinationFile, ImageAsset asset, OutputConfig outputConfig)
 		{
+			int sourceNominalWidth = asset.Width;
+			int sourceNominalHeight = asset.Height;
+			double resizeRatio = outputConfig.Ratio;
+
 			var bmp = SKBitmap.Decode(sourceFile);
 
 			var sourceActualWidth = bmp.Width;

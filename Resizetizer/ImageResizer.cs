@@ -7,6 +7,6 @@ namespace Resizetizer
 		{
 		}
 
-		public abstract void Resize(string sourceFile, string destinationFile, int sourceNominalWidth, int sourceNominalHeight, double resizeRatio);
+		public abstract void Resize(string sourceFile, string destinationFile, ImageAsset asset, OutputConfig outputConfig);
 	}
 }

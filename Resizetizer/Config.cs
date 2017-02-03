@@ -28,6 +28,11 @@ namespace Resizetizer
 
 		public List<ImageAsset> Assets { get; set; } = new List<ImageAsset>();
 
+		public List<string> ExternalCommands { get; set; } = new List<string>();
+
+		public bool Optimize { get; set; } = true;
+		public PngOptimizerEngine Optimizer { get; set; } = PngOptimizerEngine.ImageSharp;
+
 		internal void AddPlatformSizes()
 		{
 			var toAdd = new List<OutputConfig>();
