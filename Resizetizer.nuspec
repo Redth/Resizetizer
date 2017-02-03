@@ -40,6 +40,6 @@
     <file src="packages/SkiaSharp.1.56.1-beta/build/net45/SkiaSharp.dll.config" target="build" />    
 
     <file src="THIRD-PARTY-NOTICES.txt" target="THIRD-PARTY-NOTICES.txt" />
-    <file src="nuget-readme.txt" target="" />
+    <file src="nuget-readme.txt" target="readme.txt" />
   </files>
 </package>
