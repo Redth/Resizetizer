@@ -69,11 +69,11 @@ As you can see above, you can specify multiple configurations in a single file (
 
 ## Optimization
 
-**NOTE:** It turns out, skia already does a pretty good job of optimizing PNG output.  I'm still looking at other options (options are good afterall), but I wouldn't be too concerned about letting skia handle this for now.
-
 PNG Output Optimization will be enabled by default.  You can disable it by setting `optimize: false` on the config, or on an individual output item.
 
 For now, optimization is a no-op.  I am looking at different options to run optimizations on.
+
+You can run your own optimization tool of choice by using the External Commands for the time being.
 
 ## External Commands
 
