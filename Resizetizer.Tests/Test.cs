@@ -252,17 +252,14 @@ namespace Resizetizer.Tests
 				Outputs = new List<OutputConfig> {
 					new OutputConfig {
 						Ratio = 1.0,
-						FillColor = "#000000",
 					},
 					new OutputConfig {
 						Ratio = 2.0,
 						FileSuffix = "x2",
-						FillColor = "#000000",
 					},
 					new OutputConfig {
 						Ratio = 3.0,
 						FileSuffix = "x3",
-						FillColor = "#000000",
 					},
 				}
 			};
