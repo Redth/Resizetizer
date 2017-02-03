@@ -6,6 +6,12 @@ Have you ever wanted an easier way to manage all those different sizes of images
 
 You an use SVG vectors or PNG/BMP/JPG graphics as source assets, and with a bit of simple configuration, have them automatically resized to every resolution your app needs!
 
+ - Resize automatically as part of your build process!
+ - SVG Vector Support - Resize SVG vector graphics
+ - Path Fill Color - Change the SVG path fill color on resized outputs
+ - PNG Optimization - resizing is done with skia which outputs optimized PNG's
+ - External command support - run anything you want!
+
 
 ## Easy Installation
 
