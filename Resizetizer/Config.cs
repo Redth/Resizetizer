@@ -41,7 +41,7 @@ namespace Resizetizer
 			{
 				toAdd.Add(new OutputConfig { Ratio = 0.75, Path = "drawable-ldpi" });
 				toAdd.Add(new OutputConfig { Ratio = 1.0, Path = "drawable-mdpi" });
-				toAdd.Add(new OutputConfig { Ratio = 1.5, Path = "drawble-hdpi" });
+				toAdd.Add(new OutputConfig { Ratio = 1.5, Path = "drawable-hdpi" });
 				toAdd.Add(new OutputConfig { Ratio = 2.0, Path = "drawable-xhdpi" });
 				toAdd.Add(new OutputConfig { Ratio = 3.0, Path = "drawable-xxhdpi" });
 				toAdd.Add(new OutputConfig { Ratio = 4.0, Path = "drawable-xxxhdpi" });
