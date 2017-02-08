@@ -13,6 +13,8 @@ namespace Resizetizer
 		public string File { get; set; }
 		public string Size { get; set; }
 
+		public string FillColor { get; set; }
+
 		[JsonIgnore]
 		public int Width
 		{

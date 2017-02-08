@@ -11,7 +11,11 @@ namespace Resizetizer
 		public SvgImageResizer() : base ()
 		{
 		}
-		const string rxFill = @"style\s?=\s?""fill:(?<fill>.*?)""";
+		static readonly string[] rxFillPatterns = new[] {
+			@"fill\s?=\s?""(?<fill>.*?)""",
+			@"style\s?=\s?""fill:(?<fill>.*?)""",
+		};
+
 
 		public override void Resize(string sourceFile, string destinationFile, ImageAsset asset, OutputConfig outputConfig)
 		{
@@ -19,23 +23,30 @@ namespace Resizetizer
 			int sourceNominalHeight = asset.Height;
 			double resizeRatio = outputConfig.Ratio;
 
+			var fillColor = asset.FillColor;
+			if (string.IsNullOrEmpty(fillColor))
+				fillColor = outputConfig.FillColor;
+
 			// For SVG's we can optionally change the fill color on all paths
-			if (!string.IsNullOrEmpty(outputConfig.FillColor))
+			if (!string.IsNullOrEmpty(fillColor))
 			{
 				var svgText = File.ReadAllText(sourceFile);
 
-				var matches = Regex.Matches(svgText, rxFill);
-
-				foreach (Match match in matches)
+				foreach (var rxPattern in rxFillPatterns)
 				{
-					var fillGroup = match.Groups?["fill"];
+					var matches = Regex.Matches(svgText, rxPattern);
 
-					if (fillGroup != null)
+					foreach (Match match in matches)
 					{
-						// Replace the matched rx group with our override fill color
-						var a = svgText.Substring(0, fillGroup.Index);
-						var b = svgText.Substring(fillGroup.Index + fillGroup.Length);
-						svgText = a + outputConfig.FillColor.TrimEnd (';') + ";" + b;
+						var fillGroup = match.Groups?["fill"];
+
+						if (fillGroup != null)
+						{
+							// Replace the matched rx group with our override fill color
+							var a = svgText.Substring(0, fillGroup.Index);
+							var b = svgText.Substring(fillGroup.Index + fillGroup.Length);
+							svgText = a + outputConfig.FillColor.TrimEnd(';') + ";" + b;
+						}
 					}
 				}
 
@@ -80,8 +91,9 @@ namespace Resizetizer
 			// Export the canvas
 			var img = SKImage.FromBitmap(bmp);
 			var data = img.Encode(SKImageEncodeFormat.Png, 100);
-			using (var fs = File.Open(destinationFile, FileMode.Create))
+			using (var fs = File.Open(destinationFile, FileMode.Create)) {
 				data.SaveTo(fs);
+			}
 		}
 	}
 }
