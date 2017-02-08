@@ -6,7 +6,7 @@ var nuspec = "./Resizetizer.nuspec";
 var target = Argument ("target", "all");
 var configuration = Argument ("configuration", "Release");
 
-var NUGET_VERSION = Argument("APPVEYOR_BUILD_VERSION", Argument("nugetversion", "0.9999"));
+var NUGET_VERSION = EnvironmentVariable("APPVEYOR_BUILD_VERSION") ?? Argument("nugetversion", "0.9999");
 
 Task ("libs").Does (() => 
 {
