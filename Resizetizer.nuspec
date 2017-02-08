@@ -35,9 +35,9 @@
 
     <file src="Resizetizer/bin/Release/SkiaSharp.dll" target="build" />
     <file src="Resizetizer/bin/Release/SkiaSharp.Svg.dll" target="build" />
-    <file src="packages/SkiaSharp.1.56.1-beta/runtimes/osx/native/libSkiaSharp.dylib" target="build" />
-    <file src="packages/SkiaSharp.1.56.1-beta/runtimes/win7-x86/native/libSkiaSharp.dll" target="build" />
-    <file src="packages/SkiaSharp.1.56.1-beta/build/net45/SkiaSharp.dll.config" target="build" />    
+    <file src="packages/SkiaSharp.1.56.1/runtimes/osx/native/libSkiaSharp.dylib" target="build" />
+    <file src="packages/SkiaSharp.1.56.1/runtimes/win7-x86/native/libSkiaSharp.dll" target="build" />
+    <file src="packages/SkiaSharp.1.56.1/build/net45/SkiaSharp.dll.config" target="build" />    
 
     <file src="THIRD-PARTY-NOTICES.txt" target="THIRD-PARTY-NOTICES.txt" />
     <file src="nuget-readme.txt" target="readme.txt" />
