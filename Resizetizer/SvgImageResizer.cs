@@ -11,11 +11,11 @@ namespace Resizetizer
 		public SvgImageResizer() : base ()
 		{
 		}
+
 		static readonly string[] rxFillPatterns = new[] {
 			@"fill\s?=\s?""(?<fill>.*?)""",
 			@"style\s?=\s?""fill:(?<fill>.*?)""",
 		};
-
 
 		public override void Resize(string sourceFile, string destinationFile, ImageAsset asset, OutputConfig outputConfig)
 		{

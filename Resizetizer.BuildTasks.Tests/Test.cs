@@ -31,6 +31,13 @@ namespace Resizetizer.BuildTasks.Tests
 				Path.GetDirectoryName (GetType ().Assembly.Location),
 				"..", "..", "..", "Resizetizer.BuildTasks", "bin", "Debug", "Resizetizer.targets"
 			);
+			if (!File.Exists(targets)) {
+				targets = Path.Combine(
+					Path.GetDirectoryName(GetType().Assembly.Location),
+					"..", "..", "..", "Resizetizer.BuildTasks", "bin", "Release", "Resizetizer.targets"
+				);
+			}
+
 			el.AddImport (targets);
 
 		}
