@@ -22,6 +22,10 @@ namespace Resizetizer.BuildTasks.Tests
 
 		public void AddCoreTargets (ProjectRootElement el)
 		{
+			var skiaSharpTargets = Path.Combine(
+				Path.GetDirectoryName(GetType().Assembly.Location),
+				"..", "..", "..", "packages", "SkiaSharp.1.56.1", "build", "net45", "SkiaSharp.targets");
+			                           
 			//var props = Path.Combine (
 			//	Path.GetDirectoryName (GetType ().Assembly.Location),
 			//	"..", "..", "..", "Resizetizer.BuildTasks", "bin", "Debug", "Resizetizer.props"
@@ -31,6 +35,7 @@ namespace Resizetizer.BuildTasks.Tests
 				Path.GetDirectoryName (GetType ().Assembly.Location),
 				"..", "..", "..", "Resizetizer.BuildTasks", "bin", "Debug", "Resizetizer.targets"
 			);
+
 			if (!File.Exists(targets)) {
 				targets = Path.Combine(
 					Path.GetDirectoryName(GetType().Assembly.Location),
@@ -38,7 +43,10 @@ namespace Resizetizer.BuildTasks.Tests
 				);
 			}
 
+			el.AddProperty("ShouldIncludeNativeSkiaSharp", "True");
+			//< ShouldIncludeNativeSkiaSharp > True </ ShouldIncludeNativeSkiaSharp >
 			el.AddImport (targets);
+			el.AddImport(skiaSharpTargets);
 
 		}
 
