@@ -29,7 +29,7 @@ namespace Resizetizer
 			var newBmp = bmp.Resize(new SKImageInfo((int)(bmp.Width * adjustRatio), (int)(bmp.Height * adjustRatio)), SKBitmapResizeMethod.Box);
 
 			var img = SKImage.FromBitmap(newBmp);
-			var data = img.Encode(SKImageEncodeFormat.Png, 100);
+            var data = img.Encode(SKEncodedImageFormat.Png, 100);
 
 			using (var fs = File.Open(destinationFile, FileMode.Create))
 				data.SaveTo(fs);

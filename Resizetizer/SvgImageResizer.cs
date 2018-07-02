@@ -56,7 +56,7 @@ namespace Resizetizer
 				sourceFile = tempFile;
 			}
 
-			var svg = new SKSvg();
+            var svg = new SkiaSharp.Extended.Svg.SKSvg();
 			svg.Load(sourceFile);
 
 			// Find the actual size of the SVG 
@@ -90,7 +90,7 @@ namespace Resizetizer
 
 			// Export the canvas
 			var img = SKImage.FromBitmap(bmp);
-			var data = img.Encode(SKImageEncodeFormat.Png, 100);
+            var data = img.Encode(SKEncodedImageFormat.Png, 100);
 			using (var fs = File.Open(destinationFile, FileMode.Create)) {
 				data.SaveTo(fs);
 			}
