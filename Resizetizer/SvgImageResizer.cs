@@ -6,94 +6,115 @@ using SkiaSharp;
 
 namespace Resizetizer
 {
-	public class SvgImageResizer : ImageResizer
-	{
-		public SvgImageResizer() : base ()
-		{
-		}
+    public class SvgImageResizer : ImageResizer
+    {
+        public SvgImageResizer() : base()
+        {
+        }
 
-		static readonly string[] rxFillPatterns = new[] {
-			@"fill\s?=\s?""(?<fill>.*?)""",
-			@"style\s?=\s?""fill:(?<fill>.*?)""",
-		};
+        static readonly string[] rxFillPatterns = new[] {
+            @"fill\s?=\s?""(?<fill>.*?)""",
+            @"style\s?=\s?""fill:(?<fill>.*?)""",
+        };
 
-		public override void Resize(string sourceFile, string destinationFile, ImageAsset asset, OutputConfig outputConfig)
-		{
-			int sourceNominalWidth = asset.Width;
-			int sourceNominalHeight = asset.Height;
-			double resizeRatio = outputConfig.Ratio;
+        public override void Resize(string sourceFile, string destinationFile, ImageAsset asset, OutputConfig outputConfig)
+        {
+            int sourceNominalWidth = asset.Width;
+            int sourceNominalHeight = asset.Height;
+            double resizeRatio = outputConfig.Ratio;
 
-			var fillColor = asset.FillColor;
-			if (string.IsNullOrEmpty(fillColor))
-				fillColor = outputConfig.FillColor;
+            var fillColor = asset.FillColor;
+            if (string.IsNullOrEmpty(fillColor))
+                fillColor = outputConfig.FillColor;
 
-			// For SVG's we can optionally change the fill color on all paths
-			if (!string.IsNullOrEmpty(fillColor))
-			{
-				var svgText = File.ReadAllText(sourceFile);
+            var paintColor = asset.PaintColor;
+            if (string.IsNullOrEmpty(paintColor))
+                paintColor = outputConfig.PaintColor;
 
-				foreach (var rxPattern in rxFillPatterns)
-				{
-					var matches = Regex.Matches(svgText, rxPattern);
+            // For SVG's we can optionally change the fill color on all paths
+            if (!string.IsNullOrEmpty(fillColor))
+            {
+                var svgText = File.ReadAllText(sourceFile);
 
-					foreach (Match match in matches)
-					{
-						var fillGroup = match.Groups?["fill"];
+                foreach (var rxPattern in rxFillPatterns)
+                {
+                    var matches = Regex.Matches(svgText, rxPattern);
 
-						if (fillGroup != null)
-						{
-							// Replace the matched rx group with our override fill color
-							var a = svgText.Substring(0, fillGroup.Index);
-							var b = svgText.Substring(fillGroup.Index + fillGroup.Length);
-							svgText = a + outputConfig.FillColor.TrimEnd(';') + ";" + b;
-						}
-					}
-				}
+                    foreach (Match match in matches)
+                    {
+                        var fillGroup = match.Groups?["fill"];
 
-				// Write our changes out to a temp file so we don't alter the original
-				var tempFile = Path.GetTempFileName();
-				File.WriteAllText(tempFile, svgText);
-				sourceFile = tempFile;
-			}
+                        if (fillGroup != null)
+                        {
+                            // Replace the matched rx group with our override fill color
+                            var a = svgText.Substring(0, fillGroup.Index);
+                            var b = svgText.Substring(fillGroup.Index + fillGroup.Length);
+                            svgText = a + outputConfig.FillColor.TrimEnd(';') + ";" + b;
+                        }
+                    }
+                }
 
-			var svg = new SKSvg();
-			svg.Load(sourceFile);
+                // Write our changes out to a temp file so we don't alter the original
+                var tempFile = Path.GetTempFileName();
+                File.WriteAllText(tempFile, svgText);
+                sourceFile = tempFile;
+            }
 
-			// Find the actual size of the SVG 
-			var sourceActualWidth = svg.Picture.CullRect.Width;
-			var sourceActualHeight = svg.Picture.CullRect.Height;
+            var svg = new SKSvg();
+            svg.Load(sourceFile);
 
-			// Figure out what the ratio to convert the actual image size to the nominal size is
-			var nominalRatio = Math.Max((double)sourceNominalWidth / (double)sourceActualWidth, (double)sourceNominalHeight / (double)sourceActualHeight);
+            // Find the actual size of the SVG 
+            var sourceActualWidth = svg.Picture.CullRect.Width;
+            var sourceActualHeight = svg.Picture.CullRect.Height;
 
-			// Multiply nominal ratio by the resize ratio to get our final ratio we actually adjust by
-			var adjustRatio = nominalRatio * resizeRatio;
+            // Figure out what the ratio to convert the actual image size to the nominal size is
+            var nominalRatio = Math.Max((double)sourceNominalWidth / (double)sourceActualWidth, (double)sourceNominalHeight / (double)sourceActualHeight);
 
-			// Figure out our scaled width and height to make a new canvas for
-			var scaledWidth = sourceActualWidth * adjustRatio;
-			var scaledHeight = sourceActualHeight * adjustRatio;
+            // Multiply nominal ratio by the resize ratio to get our final ratio we actually adjust by
+            var adjustRatio = nominalRatio * resizeRatio;
 
-			// Make a canvas of the target size to draw the svg onto
-			var bmp = new SKBitmap((int)scaledWidth, (int)scaledHeight);
-			var canvas = new SKCanvas(bmp);
+            // Figure out our scaled width and height to make a new canvas for
+            var scaledWidth = sourceActualWidth * adjustRatio;
+            var scaledHeight = sourceActualHeight * adjustRatio;
 
-			// Make a matrix to scale the SVG
-			var matrix = SKMatrix.MakeScale((float)adjustRatio, (float)adjustRatio);
+            // Make a canvas of the target size to draw the svg onto
+            var bmp = new SKBitmap((int)scaledWidth, (int)scaledHeight);
+            var canvas = new SKCanvas(bmp);
 
-			canvas.Clear(SKColors.Transparent);
+            // Make a matrix to scale the SVG
+            var matrix = SKMatrix.MakeScale((float)adjustRatio, (float)adjustRatio);
 
-			// Draw the svg onto the canvas with our scaled matrix
-			canvas.DrawPicture(svg.Picture, ref matrix);
+            canvas.Clear(SKColors.Transparent);
 
-			// Save the op
-			canvas.Save();
+            // Draw the svg onto the canvas with our scaled matrix
+            canvas.DrawPicture(svg.Picture, ref matrix);
 
-			// Export the canvas
-			var img = SKImage.FromBitmap(bmp);
-			var data = img.Encode(SKImageEncodeFormat.Png, 100);
-			using (var fs = File.Open(destinationFile, FileMode.Create)) {
-				data.SaveTo(fs);
-			}
-		}
-	}
+            // Save the op
+            canvas.Save();
+
+            // if paint color is set change all pixels which are not transperent to the set color
+            if (!string.IsNullOrEmpty(paintColor))
+            {
+                SKColor newColor = SKColor.Parse(paintColor);
+                for (int x = 0; x < bmp.Width; x++)
+                {
+                    for (int y = 0; y < bmp.Height; y++)
+                    {
+                        var p = bmp.GetPixel(x, y);
+                        if (p.Alpha != 0)
+                        {
+                            bmp.SetPixel(x, y, newColor);
+                        }
+                    }
+                }
+            }
+            // Export the canvas
+            var img = SKImage.FromBitmap(bmp);
+            var data = img.Encode(SKImageEncodeFormat.Png, 100);
+            using (var fs = File.Open(destinationFile, FileMode.Create))
+            {
+                data.SaveTo(fs);
+            }
+        }
+    }
 }

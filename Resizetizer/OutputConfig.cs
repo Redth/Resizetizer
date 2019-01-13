@@ -5,53 +5,55 @@ using System.IO;
 namespace Resizetizer
 {
 
-	public class OutputConfig
-	{
-		public double Ratio { get; set; }
-		public string Path { get; set; }
-		public string FilePrefix { get; set; }
-		public string FileSuffix { get; set; }
+    public class OutputConfig
+    {
+        public double Ratio { get; set; }
+        public string Path { get; set; }
+        public string FilePrefix { get; set; }
+        public string FileSuffix { get; set; }
 
-		public List<string> ExternalCommands { get; set; } = new List<string>();
+        public List<string> ExternalCommands { get; set; } = new List<string>();
 
-		public bool? Optimize { get; set; }
-		public PngOptimizerEngine? Optimizer { get; set; }
+        public bool? Optimize { get; set; }
+        public PngOptimizerEngine? Optimizer { get; set; }
 
-		public string FillColor { get; set; }
+        public string FillColor { get; set; }
 
-		public string GetFilename(string originalFilename)
-		{
-			return string.Format("{0}{1}{2}{3}",
-									  FilePrefix ?? "",
-									  System.IO.Path.GetFileNameWithoutExtension(originalFilename),
-									  FileSuffix ?? "",
-									  ".png");
-		}
+        public string PaintColor { get; set; }
 
-		public string GetAbsoluteFilename(string absoluteBasePath, string originalFilename)
-		{
-			var file = GetFilename(originalFilename);
+        public string GetFilename(string originalFilename)
+        {
+            return string.Format("{0}{1}{2}{3}",
+                                      FilePrefix ?? "",
+                                      System.IO.Path.GetFileNameWithoutExtension(originalFilename),
+                                      FileSuffix ?? "",
+                                      ".png");
+        }
 
-			if (System.IO.Path.IsPathRooted(file))
-				return System.IO.Path.GetFullPath (file);
+        public string GetAbsoluteFilename(string absoluteBasePath, string originalFilename)
+        {
+            var file = GetFilename(originalFilename);
 
-			return System.IO.Path.GetFullPath (System.IO.Path.Combine(absoluteBasePath, file));
-		}
+            if (System.IO.Path.IsPathRooted(file))
+                return System.IO.Path.GetFullPath(file);
 
-		public override string ToString()
-		{
-			return string.Format("[SizeTarget: Ratio={0}, Path={1}, FilePrefix={2}, FileSuffix={3}]", Ratio, Path, FilePrefix, FileSuffix);
-		}
+            return System.IO.Path.GetFullPath(System.IO.Path.Combine(absoluteBasePath, file));
+        }
 
-		public override bool Equals(object obj)
-		{
-			return this.ToString() == obj.ToString();
-		}
+        public override string ToString()
+        {
+            return string.Format("[SizeTarget: Ratio={0}, Path={1}, FilePrefix={2}, FileSuffix={3}]", Ratio, Path, FilePrefix, FileSuffix);
+        }
 
-		public override int GetHashCode()
-		{
-			return Ratio.GetHashCode() ^ Path.GetHashCode() ^ FilePrefix.GetHashCode() ^ FileSuffix.GetHashCode();
-		}
-	}
-	
+        public override bool Equals(object obj)
+        {
+            return this.ToString() == obj.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return Ratio.GetHashCode() ^ Path.GetHashCode() ^ FilePrefix.GetHashCode() ^ FileSuffix.GetHashCode();
+        }
+    }
+
 }
