@@ -223,7 +223,49 @@ namespace Resizetizer.Tests
                     new OutputConfig {
                         Ratio = 3.0,
                         FileSuffix = "x3",
-                        FillColor = "#000000",
+                        FillColor = "#0000FF",
+                        PaintColor = "#FF0000"
+                    },
+                }
+            });
+
+            Assert.IsTrue(File.Exists(Path.Combine(basePath, "output", "happy.png")));
+            Assert.IsTrue(File.Exists(Path.Combine(basePath, "output", "happyx2.png")));
+            Assert.IsTrue(File.Exists(Path.Combine(basePath, "output", "happyx3.png")));
+        }
+
+        [Test]
+        public void Test_SVG_PaintColor()
+        {
+            var basePath = GetBasePath();
+
+            var r = new Resizetizer.Engine();
+
+            r.Run(basePath, new Config
+            {
+                Assets = new List<ImageAsset> {
+                    new ImageAsset {
+                        File = "./input/happy.svg",
+                        Size = "100x100"
+                    },
+                },
+                OutputBasePath = "./output/",
+                AutoAddPlatformSizes = false,
+                Outputs = new List<OutputConfig> {
+                    new OutputConfig {
+                        Ratio = 1.0,
+                        PaintColor = "#FF0000"
+                    },
+                    new OutputConfig {
+                        Ratio = 2.0,
+                        FileSuffix = "x2",
+                        FillColor = "#00FF00",
+                        PaintColor = "#0000FF"
+                    },
+                    new OutputConfig {
+                        Ratio = 3.0,
+                        FileSuffix = "x3",
+                        FillColor = "#0000FF",
                         PaintColor = "#FF0000"
                     },
                 }

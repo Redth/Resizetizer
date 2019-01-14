@@ -96,6 +96,12 @@ namespace Resizetizer
             if (!string.IsNullOrEmpty(paintColor))
             {
                 SKColor newColor = SKColor.Parse(paintColor);
+                SKColor fColor = SKColor.Empty;
+                // get the fill color 
+                if (!string.IsNullOrEmpty(fillColor))
+                {
+                    fColor = SKColor.Parse(fillColor);
+                }
                 for (int x = 0; x < bmp.Width; x++)
                 {
                     for (int y = 0; y < bmp.Height; y++)
@@ -103,7 +109,11 @@ namespace Resizetizer
                         var p = bmp.GetPixel(x, y);
                         if (p.Alpha != 0)
                         {
-                            bmp.SetPixel(x, y, newColor);
+                            // check that pixel is not fill color if fill color is set
+                            if (p.Red != fColor.Red || p.Green != fColor.Green || p.Blue != fColor.Blue || fColor == SKColor.Empty)
+                            {
+                                bmp.SetPixel(x, y, newColor);
+                            }
                         }
                     }
                 }
