@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resizetizer.BuildTasks", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resizetizer.BuildTasks.Tests", "Resizetizer.BuildTasks.Tests\Resizetizer.BuildTasks.Tests.csproj", "{B22B270E-1F92-481E-BA5A-9E1FA02FF7F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resizetizer.CLI", "ResizetizerCLI\Resizetizer.CLI.csproj", "{B4F1FEB8-C117-4157-81C1-35888106A443}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,5 +33,9 @@ Global
 		{B22B270E-1F92-481E-BA5A-9E1FA02FF7F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B22B270E-1F92-481E-BA5A-9E1FA02FF7F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B22B270E-1F92-481E-BA5A-9E1FA02FF7F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4F1FEB8-C117-4157-81C1-35888106A443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4F1FEB8-C117-4157-81C1-35888106A443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4F1FEB8-C117-4157-81C1-35888106A443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4F1FEB8-C117-4157-81C1-35888106A443}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

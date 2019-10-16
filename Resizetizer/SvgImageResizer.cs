@@ -120,7 +120,7 @@ namespace Resizetizer
             }
             // Export the canvas
             var img = SKImage.FromBitmap(bmp);
-            var data = img.Encode(SKImageEncodeFormat.Png, 100);
+            var data = img.Encode(SKEncodedImageFormat.Png, 100);
             using (var fs = File.Open(destinationFile, FileMode.Create))
             {
                 data.SaveTo(fs);

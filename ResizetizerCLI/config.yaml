@@ -1,0 +1,27 @@
+- platform: Android
+  outputBasePath: "../output/MyProj.Droid/Resources/"
+  assets:
+   - file: "../input/happy.svg"
+     size: 100x100
+  outputs:
+   - path: "./drawable-mdpi"
+     ratio: 1.0
+   - path: "./drawable-hdpi"
+     ratio: 1.5
+   - path: "./drawable-xhdpi"
+     ratio: 2.0
+   - path: "./drawable-xxhdpi"
+     ratio: 3.0
+   - path: "./drawable-xxxhdpi"
+     ratio: 4.0
+- platform: iOS
+  outputBasePath: "../output/MyProj.iOS/Images/"
+  assets:
+   - file: "../input/happy.svg"
+     size: 36x36
+  outputs:
+   - ratio: 1.0
+   - fileSuffix: "@2x"
+     ratio: 2.0
+   - fileSuffix: "@3x"
+     ratio: 3.0
