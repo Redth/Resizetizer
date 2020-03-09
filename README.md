@@ -1,4 +1,6 @@
-# Resizetizer
+## DEPRECATED: Check out [Resizetizer NT](https://github.com/redth/ResizetizerNT) and the [blog post](https://redth.codes/resizetizer-nt-shared-images-for-xamarin/) about it!
+
+# Resizetizer DEPRECATED
 
 [![NuGet](https://img.shields.io/nuget/v/Resizetizer.svg)](https://www.nuget.org/packages/Resizetizer/) 
 
