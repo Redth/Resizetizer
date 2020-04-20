@@ -114,6 +114,7 @@ namespace Resizetizer.Tests
    - path: ""./drawable-hdpi""
      ratio: 1.5
    - path: ""./drawable-xhdpi""
+     bitmapResizeMethod: Triangle
      ratio: 2.0
    - path: ""./drawable-xxhdpi""
      ratio: 3.0
@@ -138,6 +139,8 @@ namespace Resizetizer.Tests
 			Assert.IsTrue(configs.Any(
 				c => c.Assets.Any(a => a.File == "./assets/cog.svg") 
 				&& c.Outputs.Any(o => o.Path == "./drawable-mdpi")));
+			Assert.IsTrue(configs.Any(c => c.Outputs.Any(o => o.BitmapResizeMethod == BitmapResizeMethod.Triangle)));
+
 		}
 
 		[Test]

@@ -16,6 +16,7 @@ namespace Resizetizer
 
 		public bool? Optimize { get; set; }
 		public PngOptimizerEngine? Optimizer { get; set; }
+		public BitmapResizeMethod? BitmapResizeMethod { get; set; }
 
 		public string FillColor { get; set; }
 
