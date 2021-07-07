@@ -138,6 +138,7 @@ This will change every path in the source SVG to be black (#000000) in the resul
    - **fileSuffix**: *Optional* value to add to the end of the resized output filename.  This is useful for iOS images especially (e.g.: `fileSuffix: @2x` will cause the asset *happy.png* to be output as *happy@2x.png*.
 
     - **fillColor**: *Optional* for SVG assets, if specified, all *paths* in the source SVG file will have their fill color set to this value.
+    - **paintColor**: *Optional* for SVG assets, if specified, all pixels which are not transperent of the output png are changed to the specified color 
     - **optimize**: *Optional* `true` by default.  Overrides config setting.  Whether or not optimize output PNG's after they are resized.  Currently this is not actually implemented.
     - **optimizer**: *Optional* Change which PNG optimization engine is used.  Overrides config setting.  Currently the only possible value is *ImageSharp* however this is not yet implemented.
    - **externalCommands**: *Optional* set of commands to execute for every output in the config.  The placeholders *{outputFile}*, *{width}*, *{height}* will be substituted in the specified string.  These will run in addition to the commands specified at the config level.
